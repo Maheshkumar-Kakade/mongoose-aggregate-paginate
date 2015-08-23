@@ -1,0 +1,22 @@
+{
+  "name": "mongoose-aggregate-paginate",
+  "version": "1.0.0",
+  "description": "Mongoose plugin to add pegination for aggregations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mongoose",
+    "paginate",
+    "mongoose",
+    "aggregate",
+    "pagination"
+  ],
+  "author": "Maheshkumar Kakade <maheshkumarkakade@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^1.4.2",
+    "mongoose": "^4.1.3"
+  }
+}
