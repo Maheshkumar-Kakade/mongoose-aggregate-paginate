@@ -31,7 +31,7 @@ mySchema.plugin(mongooseAggregatePaginate);
 **Arguments**
 
 * `aggregate` - An object of the [Mongoose][mongoose] aggregate.
-* `options` - An object with options for the [Mongoose][mongoose] query, such as sorting and population
+* `options` - An object with options for the [Mongoose][mongoose] query, such as sorting
   - `page` - Default: `1`
   - `limit` - Default: `10`
   - `sortBy` - Default: `null`
