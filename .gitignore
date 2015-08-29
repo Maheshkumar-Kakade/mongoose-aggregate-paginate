@@ -44,3 +44,4 @@ Temporary Items
 
 # project specific 
 /node_modules/
+/typings/

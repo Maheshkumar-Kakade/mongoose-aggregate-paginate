@@ -37,7 +37,7 @@ mySchema.plugin(mongooseAggregatePaginate);
   - `sortBy` - Default: `null`
 * `callback(err, results, pageCount, itemCount)` - A callback is called once pagination results are retrieved, or an error has occurred.
 
-** Examples**
+**Examples**
 
 ```js
 
@@ -59,6 +59,14 @@ MyModel.aggregatePaginate(aggregate, { page : 1, limit : 15}, function(err, resu
 });
 
 ```
+## Tests
 
+```js
+npm test
+```
+## License
+[MIT][license-url]
 
 [mongoose]: http://mongoosejs.com
+[license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+[license-url]: LICENSE
