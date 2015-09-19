@@ -2,6 +2,8 @@
 
 > `mongoose-aggregate-paginate` is a [Mongoose][mongoose] plugin easy to add pegination for aggregates.  This plugin is to be used in combination with view pagination middleware such as [express-paginate](https://github.com/niftylettuce/express-paginate).   
 
+[![Build Status](https://travis-ci.org/Maheshkumar-Kakade/mongoose-aggregate-paginate.svg?branch=master)](https://travis-ci.org/Maheshkumar-Kakade/mongoose-aggregate-paginate)
+
 ## Index
 * [Install](#install)
 * [Usage](#usage)
