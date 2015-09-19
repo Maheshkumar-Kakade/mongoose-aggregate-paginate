@@ -2,7 +2,9 @@
 
 > `mongoose-aggregate-paginate` is a [Mongoose][mongoose] plugin easy to add pegination for aggregates.  This plugin is to be used in combination with view pagination middleware such as [express-paginate](https://github.com/niftylettuce/express-paginate).   
 
-[![Build Status](https://travis-ci.org/Maheshkumar-Kakade/mongoose-aggregate-paginate.svg?branch=master)](https://travis-ci.org/Maheshkumar-Kakade/mongoose-aggregate-paginate) [![npm version](https://badge.fury.io/js/mongoose-aggregate-paginate.svg)](http://badge.fury.io/js/mongoose-aggregate-paginate) [![Dependency Status](https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate.svg)](https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate)
+[![Build Status][travis-ci-img]][travis-ci-url] 
+[![npm version][npm-version-img]][npm-version-url] 
+[![Dependency Status][dependancy-status-img]][dependancy-status-url]
 
 ## Index
 * [Install](#install)
@@ -49,11 +51,13 @@ var MyModel = mongoose.model('MyModel',{
   city, String
 });
 
+// find users above 18 by city
 var aggregate = MyModel.aggregate();
 aggregate.match({age : {'lt' : 18 } })
 .group({ _id: '$city' , count : { '$sum' : 1 } })
+var options = { page : 1, limit : 15};
 
-MyModel.aggregatePaginate(aggregate, { page : 1, limit : 15}, function(err, results, pageCount, count) {
+MyModel.aggregatePaginate(aggregate, options, function(err, results, pageCount, count) {
   if(err) 
     console.err(err);
   else 
@@ -66,9 +70,19 @@ MyModel.aggregatePaginate(aggregate, { page : 1, limit : 15}, function(err, resu
 ```js
 npm test
 ```
+## Acknowlegements
+mongoose-aggregate-paginate was inspired by [mongoose-paginate][mongoose-paginate].
+
 ## License
 [MIT][license-url]
 
 [mongoose]: http://mongoosejs.com
+[mongoose-paginate]: https://www.npmjs.com/package/mongoose-paginate
 [license-image]: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
 [license-url]: LICENSE
+[travis-ci-img]: https://travis-ci.org/Maheshkumar-Kakade/mongoose-aggregate-paginate.svg?branch=master
+[travis-ci-url]: https://travis-ci.org/Maheshkumar-Kakade/mongoose-aggregate-paginate 
+[npm-version-img]: https://badge.fury.io/js/mongoose-aggregate-paginate.svg
+[npm-version-url]: http://badge.fury.io/js/mongoose-aggregate-paginate
+[dependancy-status-img]: https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate.svg
+[dependancy-status-url]: https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate
