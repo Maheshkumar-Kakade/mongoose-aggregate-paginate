@@ -1,6 +1,6 @@
 {
   "name": "mongoose-aggregate-paginate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Mongoose plugin to add pegination for aggregations",
   "main": "index.js",
   "scripts": {

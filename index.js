@@ -1,5 +1,5 @@
 var aggregatePaginate = require('./lib/mongoose-aggregate-paginate')
 
 module.exports = function (schema) {
-	schema.statics.aggrigatePaginate = aggregatePaginate
+	schema.statics.aggregatePaginate = aggregatePaginate
 }
