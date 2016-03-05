@@ -6,6 +6,7 @@
 [![npm version][npm-version-img]][npm-version-url] 
 [![Dependency Status][dependancy-status-img]][dependancy-status-url]
 
+[![NPM](https://nodei.co/npm/mongoose-aggregate-paginate.png?downloadRank=true&downloads=true)](https://nodei.co/npm/mongoose-aggregate-paginate/)
 ## Index
 * [Install](#install)
 * [Usage](#usage)
