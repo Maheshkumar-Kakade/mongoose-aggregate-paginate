@@ -39,7 +39,7 @@ mySchema.plugin(mongooseAggregatePaginate);
 * `options` - An object with options for the [Mongoose][mongoose] query, such as sorting
   - `page` - Default: `1`
   - `limit` - Default: `10`
-  - `sortBy` - Default: `null`
+  - `sortBy` - Default: `undefined`
 * `callback(err, results, pageCount, itemCount)` - A callback is called once pagination results are retrieved, or an error has occurred.
 
 **Examples**
