@@ -5,6 +5,9 @@
 [![Build Status][travis-ci-img]][travis-ci-url] 
 [![npm version][npm-version-img]][npm-version-url] 
 [![Dependency Status][dependancy-status-img]][dependancy-status-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
+[![js-standard-style][js-standard-style-img]][js-standard-style-url] 
+
 
 [![NPM](https://nodei.co/npm/mongoose-aggregate-paginate.png?downloadRank=true&downloads=true)](https://nodei.co/npm/mongoose-aggregate-paginate/)
 ## Index
@@ -50,20 +53,24 @@ var MyModel = mongoose.model('MyModel',{
   name : String,
   age: Number,
   city, String
-});
+})
 
 // find users above 18 by city
 var aggregate = MyModel.aggregate();
 aggregate.match({age : {'lt' : 18 } })
 .group({ _id: '$city' , count : { '$sum' : 1 } })
-var options = { page : 1, limit : 15};
+var options = { page : 1, limit : 15}
 
 MyModel.aggregatePaginate(aggregate, options, function(err, results, pageCount, count) {
   if(err) 
-    console.err(err);
-  else 
-    console.log(results);
-});
+  {
+    console.err(err)
+  }
+  else
+  { 
+    console.log(results)
+  }
+})
 
 ```
 ## Tests
@@ -87,3 +94,7 @@ mongoose-aggregate-paginate was inspired by [mongoose-paginate][mongoose-paginat
 [npm-version-url]: http://badge.fury.io/js/mongoose-aggregate-paginate
 [dependancy-status-img]: https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate.svg
 [dependancy-status-url]: https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate
+[coveralls-image]: https://coveralls.io/repos/github/Maheshkumar-Kakade/mongoose-aggregate-paginate/badge.svg?branch=master
+[coveralls-url]: (https://coveralls.io/github/Maheshkumar-Kakade/mongoose-aggregate-paginate?branch=master
+[js-standard-style-img]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
+[js-standard-style-url]: http://standardjs.com/
