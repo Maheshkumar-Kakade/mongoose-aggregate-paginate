@@ -95,6 +95,6 @@ mongoose-aggregate-paginate was inspired by [mongoose-paginate][mongoose-paginat
 [dependancy-status-img]: https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate.svg
 [dependancy-status-url]: https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate
 [coveralls-image]: https://coveralls.io/repos/github/Maheshkumar-Kakade/mongoose-aggregate-paginate/badge.svg?branch=master
-[coveralls-url]: (https://coveralls.io/github/Maheshkumar-Kakade/mongoose-aggregate-paginate?branch=master
+[coveralls-url]: https://coveralls.io/github/Maheshkumar-Kakade/mongoose-aggregate-paginate?branch=master
 [js-standard-style-img]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
 [js-standard-style-url]: http://standardjs.com/
