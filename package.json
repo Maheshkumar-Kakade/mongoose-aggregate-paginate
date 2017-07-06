@@ -1,7 +1,7 @@
 {
   "name": "mongoose-aggregate-paginate",
-  "version": "1.0.5",
-  "description": "Mongoose plugin to add pegination for aggregations",
+  "version": "1.0.6",
+  "description": "Mongoose plugin to add pagination for aggregations",
   "main": "index.js",
   "scripts": {
     "test": "standard && istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/",

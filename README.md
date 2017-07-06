@@ -1,15 +1,16 @@
 # mongoose-aggregate-paginate
 
-> `mongoose-aggregate-paginate` is a [Mongoose][mongoose] plugin easy to add pegination for aggregates.  This plugin is to be used in combination with view pagination middleware such as [express-paginate](https://github.com/niftylettuce/express-paginate).   
+> `mongoose-aggregate-paginate` is a [Mongoose][mongoose] plugin easy to add pagination for aggregates.  This plugin can be used in combination with view pagination middleware such as [express-paginate](https://github.com/niftylettuce/express-paginate).   
 
 [![Build Status][travis-ci-img]][travis-ci-url] 
 [![npm version][npm-version-img]][npm-version-url] 
-[![Dependency Status][dependancy-status-img]][dependancy-status-url]
+[![Dependency Status][dependency-status-img]][dependency-status-url]
 [![Test Coverage][coveralls-image]][coveralls-url]
 [![js-standard-style][js-standard-style-img]][js-standard-style-url] 
 
 
 [![NPM](https://nodei.co/npm/mongoose-aggregate-paginate.png?downloadRank=true&downloads=true)](https://nodei.co/npm/mongoose-aggregate-paginate/)
+
 ## Index
 * [Install](#install)
 * [Usage](#usage)
@@ -78,7 +79,7 @@ MyModel.aggregatePaginate(aggregate, options, function(err, results, pageCount, 
 ```js
 npm test
 ```
-## Acknowlegements
+## Acknowledgements
 mongoose-aggregate-paginate was inspired by [mongoose-paginate][mongoose-paginate].
 
 ## License
@@ -92,8 +93,8 @@ mongoose-aggregate-paginate was inspired by [mongoose-paginate][mongoose-paginat
 [travis-ci-url]: https://travis-ci.org/Maheshkumar-Kakade/mongoose-aggregate-paginate 
 [npm-version-img]: https://badge.fury.io/js/mongoose-aggregate-paginate.svg
 [npm-version-url]: http://badge.fury.io/js/mongoose-aggregate-paginate
-[dependancy-status-img]: https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate.svg
-[dependancy-status-url]: https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate
+[dependency-status-img]: https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate.svg
+[dependency-status-url]: https://gemnasium.com/Maheshkumar-Kakade/mongoose-aggregate-paginate
 [coveralls-image]: https://coveralls.io/repos/github/Maheshkumar-Kakade/mongoose-aggregate-paginate/badge.svg?branch=master
 [coveralls-url]: https://coveralls.io/github/Maheshkumar-Kakade/mongoose-aggregate-paginate?branch=master
 [js-standard-style-img]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg
