@@ -5,3 +5,4 @@ node_modules/
 typings/
 .travis.yml
 /coverage/
+.vscode
