@@ -44,7 +44,10 @@ mySchema.plugin(mongooseAggregatePaginate);
   - `page` - Default: `1`
   - `limit` - Default: `10`
   - `sortBy` - Default: `undefined`
-* `callback(err, results, pageCount, itemCount)` - A callback is called once pagination results are retrieved, or an error has occurred.
+* `callback(err, results, pageCount, itemCount)` - A callback is called once pagination results are retrieved, or an error has occurred. If not specified promise will be returned
+
+**Returns**
+* `Promise` - Promise object
 
 **Examples**
 
@@ -62,6 +65,7 @@ aggregate.match({age : {'lt' : 18 } })
 .group({ _id: '$city' , count : { '$sum' : 1 } })
 var options = { page : 1, limit : 15}
 
+// callback
 MyModel.aggregatePaginate(aggregate, options, function(err, results, pageCount, count) {
   if(err) 
   {
@@ -73,6 +77,14 @@ MyModel.aggregatePaginate(aggregate, options, function(err, results, pageCount, 
   }
 })
 
+// Promise
+ MyModel.aggregatePaginate(aggregate, options)
+  .then(function(value) {
+    console.log(value.data, value.pageCount, value.totalCount)
+  })
+  .catch(function(err){ 
+    console.err(err)
+  })
 ```
 ## Tests
 
