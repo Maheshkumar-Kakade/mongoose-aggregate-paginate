@@ -2,7 +2,7 @@
 var mongoose = require('mongoose')
 require('should')
 var mongooseAggregatePaginate = require('../')
-mongoose.connect('mongodb://localhost/MongooseAggregatePaginate-test')
+mongoose.connect('mongodb://localhost/MongooseAggregatePaginate-test', {useMongoClient: true})
 // mongoose.set('debug', true)
 var Schema = mongoose.Schema
 mongoose.Promise = Promise
@@ -39,6 +39,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
   })
 
   after(function (done) {
+    mongoose.connection.close()
     done()
   })
 
