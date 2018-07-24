@@ -46,6 +46,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
   })
 
   after(function (done) {
+    mongoose.connection.close()
     done()
   })
 
