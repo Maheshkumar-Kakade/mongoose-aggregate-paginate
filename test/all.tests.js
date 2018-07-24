@@ -2,7 +2,7 @@
 var mongoose = require('mongoose')
 require('should')
 var mongooseAggregatePaginate = require('../')
-mongoose.connect('mongodb://localhost/MongooseAggregatePaginate-test')
+mongoose.connect('mongodb://localhost/MongooseAggregatePaginate-test', {useMongoClient: true})
 // mongoose.set('debug', true)
 var Schema = mongoose.Schema
 mongoose.Promise = Promise
@@ -10,13 +10,14 @@ mongoose.Promise = Promise
 /**
  * test Schema
  */
-var testSchema = new Schema({
-  studentId: Number,
-  marksheet: [{
-    subject: String,
-    marks: Number
-  }]
-},
+var testSchema = new Schema(
+  {
+    studentId: Number,
+    marksheet: [{
+      subject: String,
+      marks: Number
+    }]
+  },
   {
     timestamps: {createdAt: 'created', updatedAt: 'modified'}
   }
