@@ -2,7 +2,7 @@
 var mongoose = require('mongoose')
 require('should')
 var mongooseAggregatePaginate = require('../')
-mongoose.connect('mongodb://localhost/MongooseAggregatePaginate-test', { useNewUrlParser: true })
+mongoose.connect('mongodb://localhost/MongooseAggregatePaginate-test', { useNewUrlParser: true }).catch(error => { console.log(error) })
 // mongoose.set('debug', true)
 var Schema = mongoose.Schema
 mongoose.Promise = Promise
@@ -40,7 +40,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
         }, { subject: 'chem', marks: 100 - (index % 7) }]
       }))
     }
-    Promise.all([TestModel.remove({}), TestModel.create(testData)])
+    TestModel.deleteMany({}).then(() => TestModel.create(testData))
       .then(function () { done() })
       .catch(done)
   })
