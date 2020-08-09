@@ -27,7 +27,7 @@ This plugin must first be added to a schema:
 
 ```js
 
-var mongooseAggregatePaginate = require('mongoose-aggregate-paginate');
+let mongooseAggregatePaginate = require('mongoose-aggregate-paginate');
 
 mySchema.plugin(mongooseAggregatePaginate);
 
@@ -43,8 +43,8 @@ mySchema.plugin(mongooseAggregatePaginate);
 * `options` - An object with options for the [Mongoose][mongoose] query, such as sorting
   - `page` - Default: `1`
   - `limit` - Default: `10`
-  - `sortBy` - Default: `undefined`
-* `callback(err, results, pageCount, itemCount)` - A callback is called once pagination results are retrieved, or an error has occurred. If not specified promise will be returned
+  - `sort` - Default: `undefined`
+* `callback(err, results, pages, total)` - A callback is called once pagination results are retrieved, or an error has occurred. If not specified promise will be returned
 
 **Returns**
 * `Promise` - Promise object
@@ -53,20 +53,20 @@ mySchema.plugin(mongooseAggregatePaginate);
 
 ```js
 
-var MyModel = mongoose.model('MyModel',{
+let MyModel = mongoose.model('MyModel',{
   name : String,
   age: Number,
   city, String
 })
 
 // find users above 18 by city
-var aggregate = MyModel.aggregate();
+let aggregate = MyModel.aggregate();
 aggregate.match({age : {'lt' : 18 } })
 .group({ _id: '$city' , count : { '$sum' : 1 } })
-var options = { page : 1, limit : 15}
+let options = { page : 1, limit : 15}
 
 // callback
-MyModel.aggregatePaginate(aggregate, options, function(err, results, pageCount, count) {
+MyModel.aggregatePaginate(aggregate, options, function(err, results, pages, count) {
   if(err) 
   {
     console.err(err)
@@ -80,7 +80,7 @@ MyModel.aggregatePaginate(aggregate, options, function(err, results, pageCount, 
 // Promise
  MyModel.aggregatePaginate(aggregate, options)
   .then(function(value) {
-    console.log(value.data, value.pageCount, value.totalCount)
+    console.log(value.docs, value.pages, value.total)
   })
   .catch(function(err){ 
     console.err(err)
