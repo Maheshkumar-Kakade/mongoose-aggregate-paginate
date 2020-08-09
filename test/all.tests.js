@@ -2,7 +2,7 @@
 var mongoose = require('mongoose')
 require('should')
 var mongooseAggregatePaginate = require('../')
-mongoose.connect('mongodb://localhost/MongooseAggregatePaginate-test', {useMongoClient: true})
+mongoose.connect('mongodb://localhost/MongooseAggregatePaginate-test', { useNewUrlParser: true })
 // mongoose.set('debug', true)
 var Schema = mongoose.Schema
 mongoose.Promise = Promise
@@ -19,7 +19,7 @@ var testSchema = new Schema(
     }]
   },
   {
-    timestamps: {createdAt: 'created', updatedAt: 'modified'}
+    timestamps: { createdAt: 'created', updatedAt: 'modified' }
   }
 )
 testSchema.plugin(mongooseAggregatePaginate)
@@ -34,10 +34,10 @@ describe('Mongoose Aggregate Paginate tests', function () {
     for (var index = 0; index < 100; ++index) {
       testData.push(new TestModel({
         studentId: index,
-        marksheet: [{subject: 'physics', marks: 100 - (index % 9)}, {
+        marksheet: [{ subject: 'physics', marks: 100 - (index % 9) }, {
           subject: 'math',
           marks: 100 - (index % 8)
-        }, {subject: 'chem', marks: 100 - (index % 7)}]
+        }, { subject: 'chem', marks: 100 - (index % 7) }]
       }))
     }
     Promise.all([TestModel.remove({}), TestModel.create(testData)])
@@ -52,9 +52,9 @@ describe('Mongoose Aggregate Paginate tests', function () {
 
   describe('Basic Tests on 100 documents', function () {
     var query = TestModel.aggregate().allowDiskUse(true)
-      .project({'marksheet': 1, 'studentId': 1})
+      .project({ marksheet: 1, studentId: 1 })
       .unwind('$marksheet')
-      .group({_id: '$studentId', total: {$sum: '$marksheet.marks'}})
+      .group({ _id: '$studentId', total: { $sum: '$marksheet.marks' } })
     describe('without page and limit (callback)', function () {
       it('should return 10 results, page count = 10 and total count = 100', function (done) {
         TestModel.aggregatePaginate(query, {}, function (err, result, pages, total) {
@@ -107,7 +107,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
 
     describe('with limit (callback)', function () {
       it('should return 20 results, page count = 5 and total count = 100 when limit is 20', function (done) {
-        TestModel.aggregatePaginate(query, {limit: 20}, function (err, result, pages, total) {
+        TestModel.aggregatePaginate(query, { limit: 20 }, function (err, result, pages, total) {
           if (err) return done(err)
           result.length.should.equal(20)
           pages.should.equal(5)
@@ -117,7 +117,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
       })
 
       it('should return 5 results, page count = 20 and total count = 100 when limit is 5', function (done) {
-        TestModel.aggregatePaginate(query, {limit: 5}, function (err, result, pages, total) {
+        TestModel.aggregatePaginate(query, { limit: 5 }, function (err, result, pages, total) {
           if (err) return done(err)
           result.length.should.equal(5)
           pages.should.equal(20)
@@ -127,7 +127,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
       })
 
       it('should return 100 results, page count = 1 and total count = 100 when limit is 200', function (done) {
-        TestModel.aggregatePaginate(query, {limit: 200}, function (err, result, pages, total) {
+        TestModel.aggregatePaginate(query, { limit: 200 }, function (err, result, pages, total) {
           if (err) return done(err)
           result.length.should.equal(100)
           pages.should.equal(1)
@@ -137,7 +137,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
       })
 
       it('should return 0 results, page count = 1 and total count = 100 when limit = 200 and page = 2', function (done) {
-        TestModel.aggregatePaginate(query, {limit: 200, page: 2}, function (err, result, pages, total) {
+        TestModel.aggregatePaginate(query, { limit: 200, page: 2 }, function (err, result, pages, total) {
           if (err) return done(err)
           result.length.should.equal(0)
           pages.should.equal(1)
@@ -151,13 +151,13 @@ describe('Mongoose Aggregate Paginate tests', function () {
         TestModel.aggregatePaginate(query, {
           limit: 10,
           page: 1,
-          sort: {'total': -1, '_id': -1}
+          sort: { total: -1, _id: -1 }
         }, function (err, result, pages, total) {
           if (err) return done(err)
           result.length.should.equal(10)
           pages.should.equal(10)
           total.should.equal(100)
-          result[0]['total'].should.equal(300)
+          result[0].total.should.equal(300)
           done()
         })
       })
@@ -165,7 +165,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
 
     describe('with limit (Promise)', function () {
       it('should return 20 results, page count = 5 and total count = 100 when limit is 20', function (done) {
-        TestModel.aggregatePaginate(query, {limit: 20})
+        TestModel.aggregatePaginate(query, { limit: 20 })
           .then(function (value) {
             value.docs.length.should.equal(20)
             value.pages.should.equal(5)
@@ -176,7 +176,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
       })
 
       it('should return 5 results, page count = 20 and total count = 100 when limit is 5', function (done) {
-        TestModel.aggregatePaginate(query, {limit: 5})
+        TestModel.aggregatePaginate(query, { limit: 5 })
           .then(function (value) {
             value.docs.length.should.equal(5)
             value.pages.should.equal(20)
@@ -187,7 +187,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
       })
 
       it('should return 100 results, page count = 1 and total count = 100 when limit is 200', function (done) {
-        TestModel.aggregatePaginate(query, {limit: 200})
+        TestModel.aggregatePaginate(query, { limit: 200 })
           .then(function (value) {
             value.docs.length.should.equal(100)
             value.pages.should.equal(1)
@@ -198,7 +198,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
       })
 
       it('should return 0 results, page count = 1 and total count = 100 when limit = 200 and page = 2', function (done) {
-        TestModel.aggregatePaginate(query, {limit: 200, page: 2})
+        TestModel.aggregatePaginate(query, { limit: 200, page: 2 })
           .then(function (value) {
             value.docs.length.should.equal(0)
             value.pages.should.equal(1)
@@ -210,12 +210,12 @@ describe('Mongoose Aggregate Paginate tests', function () {
 
       it('should return 10 results, page count = 10 and total count = 100 when limit = 10 and page = 1 sort order = total desc', function (done) {
         // var sortQuery = TestModel.aggregate(query._pipeline)
-        TestModel.aggregatePaginate(query, {limit: 10, page: 1, sort: {'total': -1, '_id': -1}})
+        TestModel.aggregatePaginate(query, { limit: 10, page: 1, sort: { total: -1, _id: -1 } })
           .then(function (value) {
             value.docs.length.should.equal(10)
             value.pages.should.equal(10)
             value.total.should.equal(100)
-            value.docs[0]['total'].should.equal(300)
+            value.docs[0].total.should.equal(300)
             done()
           })
           .catch(done)
@@ -224,7 +224,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
 
     describe('with page (callback)', function () {
       it('should return 10 results, page count = 10 and total count = 100 when page = 1', function (done) {
-        TestModel.aggregatePaginate(query, {page: 1}, function (err, result, pages, total) {
+        TestModel.aggregatePaginate(query, { page: 1 }, function (err, result, pages, total) {
           if (err) return done(err)
           result.length.should.equal(10)
           pages.should.equal(10)
@@ -234,7 +234,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
       })
 
       it('should return 10 results, page count = 10 and total count = 100 when page = 2', function (done) {
-        TestModel.aggregatePaginate(query, {page: 2}, function (err, result, pages, total) {
+        TestModel.aggregatePaginate(query, { page: 2 }, function (err, result, pages, total) {
           if (err) return done(err)
           result.length.should.equal(10)
           pages.should.equal(10)
@@ -244,7 +244,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
       })
 
       it('should return 10 results, page count = 10 and total count = 100 when page = 10', function (done) {
-        TestModel.aggregatePaginate(query, {page: 10}, function (err, result, pages, total) {
+        TestModel.aggregatePaginate(query, { page: 10 }, function (err, result, pages, total) {
           if (err) return done(err)
           result.length.should.equal(10)
           pages.should.equal(10)
@@ -257,13 +257,13 @@ describe('Mongoose Aggregate Paginate tests', function () {
         TestModel.aggregatePaginate(query, {
           page: 5,
           limit: 20,
-          sort: {'total': -1}
+          sort: { total: -1 }
         }, function (err, result, pages, total) {
           if (err) return done(err)
           result.length.should.equal(20)
           pages.should.equal(5)
           total.should.equal(100)
-          result[0]['total'].should.not.equal(300)
+          result[0].total.should.not.equal(300)
           done()
         })
       })
@@ -272,7 +272,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
         TestModel.aggregatePaginate(query, {
           page: -5,
           limit: 20,
-          sort: {'total': -1}
+          sort: { total: -1 }
         }, function (err, result, pages, total) {
           if (err) {
             err.should.should.not.equal(null)
@@ -283,13 +283,13 @@ describe('Mongoose Aggregate Paginate tests', function () {
         })
         it('should return error', function (done) {
           var q = TestModel.aggregate()
-            .project({'marksheet': 1, 'studentId': 1})
+            .project({ marksheet: 1, studentId: 1 })
             .unwind('marksheet')
-            .group({_id: '$studentId', total: {$sum: '$marksheet.marks'}})
+            .group({ _id: '$studentId', total: { $sum: '$marksheet.marks' } })
           TestModel.aggregatePaginate(q, {
             page: -5,
             limit: 20,
-            sort: {'total': -1}
+            sort: { total: -1 }
           }, function (err, result, pages, total) {
             if (err) {
               err.should.should.not.equal(null)
@@ -304,7 +304,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
 
     describe('with page (Promise)', function () {
       it('should return 10 results, page count = 10 and total count = 100 when page = 1', function (done) {
-        TestModel.aggregatePaginate(query, {page: 1})
+        TestModel.aggregatePaginate(query, { page: 1 })
           .then(function (value) {
             value.docs.length.should.equal(10)
             value.pages.should.equal(10)
@@ -315,7 +315,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
       })
 
       it('should return 10 results, page count = 10 and total count = 100 when page = 2', function (done) {
-        TestModel.aggregatePaginate(query, {page: 2})
+        TestModel.aggregatePaginate(query, { page: 2 })
           .then(function (value) {
             value.docs.length.should.equal(10)
             value.pages.should.equal(10)
@@ -326,7 +326,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
       })
 
       it('should return 10 results, page count = 10 and total count = 100 when page = 10', function (done) {
-        TestModel.aggregatePaginate(query, {page: 10})
+        TestModel.aggregatePaginate(query, { page: 10 })
           .then(function (value) {
             value.docs.length.should.equal(10)
             value.pages.should.equal(10)
@@ -337,19 +337,19 @@ describe('Mongoose Aggregate Paginate tests', function () {
       })
 
       it('should return 20 results, page count = 5 and total count = 100 when page = 5 , limit = 20 sort total desc', function (done) {
-        TestModel.aggregatePaginate(query, {page: 5, limit: 20, sort: {'total': -1}})
+        TestModel.aggregatePaginate(query, { page: 5, limit: 20, sort: { total: -1 } })
           .then(function (value) {
             value.docs.length.should.equal(20)
             value.pages.should.equal(5)
             value.total.should.equal(100)
-            value.docs[0]['total'].should.not.equal(300)
+            value.docs[0].total.should.not.equal(300)
             done()
           })
           .catch(done)
       })
 
       it('should return error', function (done) {
-        TestModel.aggregatePaginate(query, {page: -5, limit: 20, sort: {'total': -1}})
+        TestModel.aggregatePaginate(query, { page: -5, limit: 20, sort: { total: -1 } })
           .then(function (value) {
             done('no error return')
           })
@@ -359,10 +359,10 @@ describe('Mongoose Aggregate Paginate tests', function () {
           })
         it('should return error', function (done) {
           var q = TestModel.aggregate()
-            .project({'marksheet': 1, 'studentId': 1})
+            .project({ marksheet: 1, studentId: 1 })
             .unwind('marksheet')
-            .group({_id: '$studentId', total: {$sum: '$marksheet.marks'}})
-          TestModel.aggregatePaginate(q, {page: -5, limit: 20, sort: {'total': -1}})
+            .group({ _id: '$studentId', total: { $sum: '$marksheet.marks' } })
+          TestModel.aggregatePaginate(q, { page: -5, limit: 20, sort: { total: -1 } })
             .then(function (value) {
               done('no error return')
             })

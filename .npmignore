@@ -6,3 +6,5 @@ typings/
 .travis.yml
 /coverage/
 .vscode
+.nyc_output/
+test/
