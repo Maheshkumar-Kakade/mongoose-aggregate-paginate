@@ -1,16 +1,16 @@
 /* eslint-env mocha */
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 require('should')
-var mongooseAggregatePaginate = require('../')
+const mongooseAggregatePaginate = require('../')
 mongoose.connect('mongodb://localhost/MongooseAggregatePaginate-test', { useNewUrlParser: true }).catch(error => { console.log(error) })
 // mongoose.set('debug', true)
-var Schema = mongoose.Schema
+const Schema = mongoose.Schema
 mongoose.Promise = Promise
 
 /**
  * test Schema
  */
-var testSchema = new Schema(
+const testSchema = new Schema(
   {
     studentId: Number,
     marksheet: [{
@@ -24,14 +24,14 @@ var testSchema = new Schema(
 )
 testSchema.plugin(mongooseAggregatePaginate)
 
-var TestModel = mongoose.model('TestModel', testSchema, 'studentMarksheet')
+const TestModel = mongoose.model('TestModel', testSchema, 'studentMarksheet')
 
 module.exports = testSchema
 
 describe('Mongoose Aggregate Paginate tests', function () {
   before(function (done) {
-    var testData = []
-    for (var index = 0; index < 100; ++index) {
+    const testData = []
+    for (let index = 0; index < 100; ++index) {
       testData.push(new TestModel({
         studentId: index,
         marksheet: [{ subject: 'physics', marks: 100 - (index % 9) }, {
@@ -51,7 +51,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
   })
 
   describe('Basic Tests on 100 documents', function () {
-    var query = TestModel.aggregate().allowDiskUse(true)
+    const query = TestModel.aggregate().allowDiskUse(true)
       .project({ marksheet: 1, studentId: 1 })
       .unwind('$marksheet')
       .group({ _id: '$studentId', total: { $sum: '$marksheet.marks' } })
@@ -282,7 +282,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
           done('no error return')
         })
         it('should return error', function (done) {
-          var q = TestModel.aggregate()
+          const q = TestModel.aggregate()
             .project({ marksheet: 1, studentId: 1 })
             .unwind('marksheet')
             .group({ _id: '$studentId', total: { $sum: '$marksheet.marks' } })
@@ -358,7 +358,7 @@ describe('Mongoose Aggregate Paginate tests', function () {
             done()
           })
         it('should return error', function (done) {
-          var q = TestModel.aggregate()
+          const q = TestModel.aggregate()
             .project({ marksheet: 1, studentId: 1 })
             .unwind('marksheet')
             .group({ _id: '$studentId', total: { $sum: '$marksheet.marks' } })

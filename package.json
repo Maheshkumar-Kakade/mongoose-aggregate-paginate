@@ -1,6 +1,6 @@
 {
   "name": "mongoose-aggregate-paginate",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Mongoose plugin to add pagination for aggregations",
   "main": "index.js",
   "scripts": {
@@ -34,9 +34,9 @@
   "devDependencies": {
     "coveralls": "^3.1.0",
     "nyc": "^15.1.0",
-    "mocha": "^8.1.1",
-    "mongoose": "^5.9.28",
+    "mocha": "^8.4.0",
+    "mongoose": "^5.12.13",
     "should": "^13.2.3",
-    "standard": "^14.3.4"
+    "standard": "^16.0.3"
   }
 }
